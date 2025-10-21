@@ -22,11 +22,11 @@
             
             <tag> Java </tag>
             
+            <tag> learn </tag>
+            
             <tag> HTML </tag>
             
             <tag> css </tag>
-            
-            <tag> learn </tag>
             
         </tags>
       
@@ -62,6 +62,33 @@
     
     
     <entry>
+      <title>java基础知识</title>
+      <link href="/2025/10/18/java%E5%9F%BA%E7%A1%80/"/>
+      <url>/2025/10/18/java%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Java语言概述"><a href="#Java语言概述" class="headerlink" title="Java语言概述"></a>Java语言概述</h3><h2 id="Java概述"><a href="#Java概述" class="headerlink" title="Java概述"></a>Java概述</h2><p>是SUN(Stanford University Network，斯坦福大学网络公司 ) 1995年推出的一门高级编程语言。<br>是一种面向Internet的编程语言。Java一开始富有吸引力是因为Java程序可以在Web浏览器中运行。这些Java程序被称为Java小程序（applet），内嵌在HTML代码中。<br>伴随着互联网的迅猛发展，以及Java技术在web方面的不断成熟，已经成为Web应用程序的首选开发语言。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteTbImageStorageByPkId</span><span class="params">(String pkId)</span> <span class="keyword">throws</span> Exception</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pkId == <span class="literal">null</span> || pkId.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未提供有效的图片ID&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//查询图片信息</span></span><br><span class="line">        <span class="type">TbImageStorage</span> <span class="variable">tbImageStorage</span> <span class="operator">=</span> tbImageStorageMapper.selectTbImageStorageByPkId(pkId);</span><br><span class="line">        <span class="keyword">if</span> (tbImageStorage == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未找到对应的图片信息&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//删除物理文件，三张图片</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgPath());</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgSiPath());</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b2</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgWmPath());</span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgName());</span></span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgSiName());</span></span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgWmName());</span></span><br><span class="line">        <span class="keyword">if</span> (!b || !b1 || !b2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未找到图片路径&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//删除发布记录</span></span><br><span class="line">        <span class="keyword">return</span> tbImageStorageMapper.deleteTbImageStorageByPkId(pkId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> learn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Javascript</title>
       <link href="/2025/10/18/javajs/"/>
       <url>/2025/10/18/javajs/</url>
@@ -83,33 +110,6 @@
             <tag> learn </tag>
             
             <tag> js </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>java基础知识</title>
-      <link href="/2025/10/18/java%E5%9F%BA%E7%A1%80/"/>
-      <url>/2025/10/18/java%E5%9F%BA%E7%A1%80/</url>
-      
-        <content type="html"><![CDATA[<h3 id="Java语言概述"><a href="#Java语言概述" class="headerlink" title="Java语言概述"></a>Java语言概述</h3><h2 id="Java概述"><a href="#Java概述" class="headerlink" title="Java概述"></a>Java概述</h2><p>是SUN(Stanford University Network，斯坦福大学网络公司 ) 1995年推出的一门高级编程语言。<br>是一种面向Internet的编程语言。Java一开始富有吸引力是因为Java程序可以在Web浏览器中运行。这些Java程序被称为Java小程序（applet），内嵌在HTML代码中。<br>伴随着互联网的迅猛发展，以及Java技术在web方面的不断成熟，已经成为Web应用程序的首选开发语言。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Transactional(rollbackFor = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">deleteTbImageStorageByPkId</span><span class="params">(String pkId)</span> <span class="keyword">throws</span> Exception</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (pkId == <span class="literal">null</span> || pkId.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未提供有效的图片ID&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//查询图片信息</span></span><br><span class="line">        <span class="type">TbImageStorage</span> <span class="variable">tbImageStorage</span> <span class="operator">=</span> tbImageStorageMapper.selectTbImageStorageByPkId(pkId);</span><br><span class="line">        <span class="keyword">if</span> (tbImageStorage == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未找到对应的图片信息&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//删除物理文件，三张图片</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgPath());</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgSiPath());</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b2</span> <span class="operator">=</span> deleteFile(tbImageStorage.getcImgWmPath());</span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgName());</span></span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgSiName());</span></span><br><span class="line"><span class="comment">//        minIOUtils.deleteFile(tbImageStorage.getcImgWmName());</span></span><br><span class="line">        <span class="keyword">if</span> (!b || !b1 || !b2) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;未找到图片路径&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//删除发布记录</span></span><br><span class="line">        <span class="keyword">return</span> tbImageStorageMapper.deleteTbImageStorageByPkId(pkId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Java </tag>
-            
-            <tag> learn </tag>
             
         </tags>
       

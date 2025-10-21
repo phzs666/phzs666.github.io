@@ -1,44 +1,34 @@
-if (
-    window.localStorage.getItem("fpson") === undefined ||
-    window.localStorage.getItem("fpson") === "1"
-) {
-    var rAF = (function () {
-        return (
-            window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            function (callback) {
-                window.setTimeout(callback, 1000 / 60);
-            }
-        );
-    })();
+// 获取本地开关
+const fpson = window.localStorage.getItem("fpson");
 
-    var frame = 0;
-    var allFrameCount = 0;
-    var lastTime = Date.now();
-    var lastFrameTime = Date.now();
+// 只要不是 "0" 就显示 FPS
+if (fpson === null || fpson === "1") {
+    const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb){ setTimeout(cb, 1000/60); };
 
-    var loop = function () {
-        var now = Date.now();
-        var fs = now - lastFrameTime;
-        var fps = Math.round(1000 / fs);
+    let frame = 0;
+    let lastTime = Date.now();
+    let lastFrameTime = Date.now();
 
+    const loop = function() {
+        const now = Date.now();
+        const fs = now - lastFrameTime;
+        const fps = Math.round(1000 / fs);
         lastFrameTime = now;
-        allFrameCount++;
         frame++;
 
-        if (now > 1000 + lastTime) {
-            fps = Math.round((frame * 1000) / (now - lastTime));
+        if (now - lastTime > 1000) {
+            const realFps = Math.round((frame * 1000) / (now - lastTime));
             let kd;
 
-            if (fps <= 5) {
+            if (realFps <= 5) {
                 kd = `<span style="color:#bd0000">卡成ppt🤢</span>`;
-            } else if (fps <= 15) {
+            } else if (realFps <= 15) {
                 kd = `<span style="color:red">电竞级帧率😖</span>`;
-            } else if (fps <= 25) {
+            } else if (realFps <= 25) {
                 kd = `<span style="color:orange">有点难受😨</span>`;
-            } else if (fps < 35) {
+            } else if (realFps < 35) {
                 kd = `<span style="color:#9338e6">不太流畅🙄</span>`;
-            } else if (fps <= 45) {
+            } else if (realFps <= 45) {
                 kd = `<span style="color:#08b7e4">还不错哦😁</span>`;
             } else {
                 kd = `<span style="color:#39c5bb">十分流畅🤣</span>`;
@@ -46,7 +36,7 @@ if (
 
             const fpsElement = document.getElementById("fps");
             if (fpsElement) {
-                fpsElement.innerHTML = `FPS:${fps} ${kd}`;
+                fpsElement.innerHTML = `FPS: ${realFps} ${kd}`;
             }
 
             frame = 0;
@@ -56,10 +46,10 @@ if (
         rAF(loop);
     };
 
-    loop();
+    // 延迟执行，保证 DOM 已加载，断点可用
+    window.addEventListener('DOMContentLoaded', loop);
+
 } else {
     const fpsElement = document.getElementById("fps");
-    if (fpsElement) {
-        fpsElement.style.display = "none";
-    }
+    if (fpsElement) fpsElement.style.display = "none";
 }

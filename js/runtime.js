@@ -1,36 +1,50 @@
+var now = new Date();
+
+function createtime() {
+    // 当前时间
+    now.setTime(now.getTime() + 1000);
+
+    var start = new Date("08/01/2022 00:00:00"); // 旅行者1号开始计算的时间
+    var dis = Math.trunc(23400000000 + ((now - start) / 1000) * 17); // 距离=秒数*速度
+    var unit = (dis / 149600000).toFixed(6); // 天文单位
+
+    var grt = new Date("10/19/2025 00:00:00"); // 网站诞生时间
+    var days = (now - grt) / 1000 / 60 / 60 / 24;
+    var dnum = Math.floor(days);
+    var hours = (now - grt) / 1000 / 60 / 60 - 24 * dnum;
+    var hnum = Math.floor(hours);
+    if (String(hnum).length == 1) hnum = "0" + hnum;
+
+    var minutes = (now - grt) / 1000 / 60 - 1440 * dnum - 60 * hnum;
+    var mnum = Math.floor(minutes);
+    if (String(mnum).length == 1) mnum = "0" + mnum;
+
+    var seconds = (now - grt) / 1000 - 86400 * dnum - 3600 * hnum - 60 * mnum;
+    var snum = Math.round(seconds);
+    if (String(snum).length == 1) snum = "0" + snum;
+
+    let currentTimeHtml = "";
+
+    currentTimeHtml =
+        hnum < 18 && hnum >= 9
+            ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br>
+         <div style="font-size:13px;font-weight:bold">
+         本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒 
+         <i id="heartbeat" class='fas fa-heartbeat'></i> <br>
+         旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀
+         </div>`
+            : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br>
+         <div style="font-size:13px;font-weight:bold">
+         本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒 
+         <i id="heartbeat" class='fas fa-heartbeat'></i> <br>
+         旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀
+         </div>`;
+
+    if (document.getElementById("workboard"))
+        document.getElementById("workboard").innerHTML = currentTimeHtml;
+}
+
+// 设置重复执行函数，周期1000ms
 setInterval(() => {
-    const createTime = new Date('2025-10-17 00:00:00'); // 建站时间
-    const now = new Date();
-
-    let diffSeconds = Math.floor((now - createTime) / 1000);
-
-    const years = Math.floor(diffSeconds / (365 * 24 * 3600));
-    diffSeconds %= 365 * 24 * 3600;
-
-    const days = Math.floor(diffSeconds / (24 * 3600));
-    diffSeconds %= 24 * 3600;
-
-    const hours = Math.floor(diffSeconds / 3600);
-    diffSeconds %= 3600;
-
-    const minutes = Math.floor(diffSeconds / 60);
-    const seconds = diffSeconds % 60;
-
-    const pad = n => n.toString().padStart(2, '0');
-
-    const isOpen = hours >= 9 && hours < 18;
-    const statusBadge = isOpen
-        ? `<img class='boardsign' src='https://img.shields.io/badge/phzs-营业中-6adea8?style=social&logo=cakephp' title='距离百年老店也就差不到一百年~'>`
-        : `<img class='boardsign' src='https://img.shields.io/badge/phzs-打烊了-6adea8?style=social&logo=coffeescript' title='这个点了应该去睡觉啦，熬夜对身体不好哦'>`;
-
-    const html = `
-    ${statusBadge}
-    <div id="runtime">
-      ${years} YEAR ${days} DAYS ${pad(hours)} : ${pad(minutes)} : ${pad(seconds)}
-    </div>
-  `;
-
-    const workboard = document.getElementById("workboard");
-    if (workboard) workboard.innerHTML = html;
-
+    createtime();
 }, 1000);
