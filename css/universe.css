@@ -1,0 +1,15 @@
+/* ===== 背景宇宙星光（Canvas 动画层） ===== */
+#universe {
+    display: block;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 允许点击下层内容 */
+    z-index: -1; /* 置于文章内容下，背景上层 */
+}
