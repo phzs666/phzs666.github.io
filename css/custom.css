@@ -336,6 +336,89 @@
 }
 
 
+/* ===== 页脚内容整体居中 ===== */
+
+/* 统一页脚居中布局 */
+.footer-other,
+.copyright,
+.framework-info,
+.workboard {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    text-align: center;
+    flex-wrap: wrap;         /* 小屏幕时自动换行 */
+    gap: 6px;                /* 项目之间留点间距 */
+    width: 100%;
+}
+
+/* copyright 样式 */
+.copyright {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+}
+
+/* 框架信息样式 */
+.framework-info {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-top: 4px;
+}
+
+/* workboard 徽章样式（如果有图标） */
+.workboard img {
+    height: 24px;
+    width: auto;
+    border-radius: 4px;
+    margin: 4px;
+    transition: transform 0.3s ease;
+}
+
+/* 悬浮动画 */
+.workboard img:hover {
+    transform: scale(1.1);
+}
+
+/* workboard 居中显示 */
+#workboard {
+    text-align: center; /* 文本水平居中 */
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* 徽章图片居中对齐 */
+#workboard .boardsign {
+    display: block;
+    margin: 0 auto 6px; /* 上下间距自动居中 */
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+/* 心跳动画样式（保持原样即可） */
+#heartbeat {
+    color: #ff8fab; /* 樱花粉色 */
+    animation: iconAnimate 1s ease-in-out infinite;
+}
+
+/* 徽章区域居中显示 */
+#ghbdages {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#ghbdages a img {
+    height: 20px;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+}
+
+/* 悬停时轻微放大动画 */
+#ghbdages a:hover img {
+    transform: scale(1.1);
+}
+
+
 
 
 
