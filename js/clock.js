@@ -95,26 +95,27 @@
     /* ========= 和风天气 ========= */
     function fetchWeather(location, city) {
         if (!QWEATHER_KEY) {
-            console.error("QWeather key missing");
+            console.error("[Clock] QWeather key missing");
             render(null, city);
             return;
         }
 
         const url = `https://${QWEATHER_HOST}/v7/weather/now?location=${location}&key=${QWEATHER_KEY}`;
-        console.log("[QWeather]", url);
+        console.log("[Clock] Fetching weather:", url);
 
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
                 if (data.code === "200") {
+                    console.log("[Clock] Weather data received:", data.now);
                     render(data.now, city);
                 } else {
-                    console.error("QWeather error:", data);
+                    console.error("[Clock] QWeather API error:", data);
                     render(null, city);
                 }
             })
             .catch((err) => {
-                console.error("QWeather fetch failed:", err);
+                console.error("[Clock] QWeather fetch failed:", err);
                 render(null, city);
             });
     }
@@ -122,51 +123,93 @@
     /* ========= 高德 IP 定位 ========= */
     function locateByGaodeIP() {
         if (!GAODE_KEY) {
-            console.warn("Gaode key missing");
+            console.warn("[Clock] Gaode key missing, using fixed location");
             fetchWeather(RECTANGLE, "Fixed Location");
             return;
         }
 
         const url = `https://restapi.amap.com/v3/ip?key=${GAODE_KEY}`;
-        console.log("[Gaode IP]", url);
+        console.log("[Clock] Gaode IP locate:", url);
 
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
+                console.log("[Clock] Gaode IP response:", data);
                 if (data.status === "1" && data.rectangle) {
                     const [lng, lat] = data.rectangle.split(";")[0].split(",");
+                    console.log("[Clock] Using IP location:", lng, lat, data.city);
                     fetchWeather(`${lng},${lat}`, data.city || "IP Location");
                 } else {
+                    console.warn("[Clock] Gaode IP failed, using fixed location");
                     fetchWeather(RECTANGLE, "Fixed Location");
                 }
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error("[Clock] Gaode IP error:", err);
                 fetchWeather(RECTANGLE, "Fixed Location");
             });
     }
 
     /* ========= 浏览器定位 ========= */
     function locateByBrowser() {
+        // 检查是否支持地理定位
         if (!navigator.geolocation) {
+            console.warn("[Clock] Geolocation not supported");
             locateByGaodeIP();
             return;
         }
+
+        // 检查是否为 HTTPS (localhost 除外)
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+            console.warn("[Clock] HTTPS required for geolocation (current: " + location.protocol + ")");
+            locateByGaodeIP();
+            return;
+        }
+
+        console.log("[Clock] Requesting browser geolocation...");
 
         navigator.geolocation.getCurrentPosition(
             (pos) => {
                 const lng = pos.coords.longitude;
                 const lat = pos.coords.latitude;
-                console.log("[Browser Geo]", lng, lat);
+                console.log("[Clock] Browser geolocation success:", lng, lat);
                 fetchWeather(`${lng},${lat}`, "Your Location");
             },
-            () => locateByGaodeIP(),
-            { timeout: 8000 }
+            (error) => {
+                // 详细的错误信息
+                const errorMessages = {
+                    1: 'Permission denied by user',
+                    2: 'Position unavailable',
+                    3: 'Request timeout'
+                };
+                console.warn(
+                    `[Clock] Browser geolocation failed: ${errorMessages[error.code] || 'Unknown error'}`,
+                    error.message
+                );
+                console.log("[Clock] Falling back to IP location");
+                locateByGaodeIP();
+            },
+            {
+                timeout: 15000,              // 15秒超时
+                enableHighAccuracy: false,   // 低精度模式,更快
+                maximumAge: 300000           // 允许使用5分钟内的缓存
+            }
         );
     }
 
     /* ========= 入口 ========= */
     function init() {
+        console.log("[Clock] Initializing...");
+        console.log("[Clock] Config:", {
+            useDefaultRect: USE_DEFAULT_RECT,
+            hasQWeatherKey: !!QWEATHER_KEY,
+            hasGaodeKey: !!GAODE_KEY,
+            protocol: location.protocol,
+            hostname: location.hostname
+        });
+
         if (USE_DEFAULT_RECT) {
+            console.log("[Clock] Using fixed location");
             fetchWeather(RECTANGLE, "Fixed Location");
         } else {
             locateByBrowser();

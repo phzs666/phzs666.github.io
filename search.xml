@@ -20,9 +20,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> learn </tag>
+            
+            <tag> Java </tag>
             
             <tag> 算法 </tag>
             
@@ -49,13 +49,13 @@
       
         <tags>
             
+            <tag> learn </tag>
+            
             <tag> Java </tag>
             
             <tag> HTML </tag>
             
             <tag> css </tag>
-            
-            <tag> learn </tag>
             
         </tags>
       
@@ -107,9 +107,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> learn </tag>
+            
+            <tag> Java </tag>
             
             <tag> js </tag>
             
@@ -136,9 +136,9 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> learn </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -154,6 +154,14 @@
         <content type="html"><![CDATA[<h2 id="第一篇文章"><a href="#第一篇文章" class="headerlink" title="第一篇文章"></a>第一篇文章</h2><p>nihao</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 日记 </tag>
+            
+            <tag> learn </tag>
+            
+        </tags>
       
     </entry>
     
